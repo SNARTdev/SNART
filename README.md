@@ -100,3 +100,7 @@ There are a ton of functions/commented out sections with the word "brem":
 This alludes to Bremmsrahlung Emission, another capability of SNART that is in the works but has not been tested and
 may not be compatible with the tweaks and changes I've made the the main body of code along the way. Think of this as
 a half-step towards Bremmstrahlung implementation.
+
+
+<h2> HOW TO CITE: </h2>
+<h2> Here? my paper? </h2>
