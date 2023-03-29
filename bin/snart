@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import logging
+import argparse
+import configparser
+import time
+import numpy as np
+import lmfit
+from SNART.fitting import SNFit
+from SNART.data import SNData, write_output
+from SNART.plotting import make_all_plots
+from SNART.synchrotron import calculate_physical_params
+
+start_time = time.time()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--config-file", type=str, required=True)
+parser.add_argument("--output-dir", type=str, default=".",
+                    help="Base path for all output files.")
+parser.add_argument("--plot-quicklook", action="store_true", default=False,
+                    help="Make diagnostic plots of data.")
+parser.add_argument("--epsilonE", type=float, default=0.1)
+parser.add_argument("--epsilonB", type=float, default=0.01)
+parser.add_argument("--equipartition", action="store_true")
+parser.add_argument("--i-nom", type=float, default=1.0)
+parser.add_argument("--fill-nom", type=float, default=1.0)
+parser.add_argument("--theta-nom", type=float, default=np.pi/2)
+parser.add_argument("--make-plots", action="store_true")
+parser.add_argument("--verbose", action="store_true")
+opts = parser.parse_args()
+
+# initialize logging
+loglevel = logging.DEBUG if opts.verbose else logging.INFO
+logging.getLogger().setLevel(loglevel)
+logging.basicConfig(format='%(asctime)s %(message)s', level=loglevel)
+
+logging.info("Reading config file %s", opts.config_file)
+cp = configparser.ConfigParser()
+cp.read(opts.config_file)
+
+# make instance of SNData using settings from config file
+logging.info("Reading data")
+sn_data = SNData.from_config(cp)
+
+# run fit in obs units (Jy and 5GHz)
+logging.info("Loading fit model")
+sn_fit = SNFit.from_config(cp, sn_data)
+# run second fit in "display" units (uJy and GHz)
+sn_fit_disp = SNFit.from_config(cp, sn_data, display=True)
+
+# report obs units fit result to terminal
+logging.debug("~~~~~~~~~~~~Fit result with LMFIT~~~~~~~~~~~~~~~~~")
+logging.debug("~~~~~~~~~~~~Flux = [jy], freq = [5Ghz] ~~~~~~~~~~~")
+logging.debug("\n%s", lmfit.fit_report(sn_fit.result.obs, show_correl=False))
+logging.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+logging.info("Calculating physical parameters")
+calculate_physical_params(sn_data, sn_fit, opts)
+
+# write output datafiles
+logging.info("Writing output datafiles")
+write_output(sn_data, sn_fit, sn_fit_disp, opts)
+
+if opts.make_plots:
+    # make plots
+    logging.info("Making result plots")
+    propagate_days = None
+    if cp.has_option("plot", "desired-time"):
+        propagate_days = float(cp.get("plot", "desired-time"))
+    make_all_plots(sn_data, sn_fit, opts, propagate_days=propagate_days)
+
+logging.info("--- Finished in %s seconds ---", time.time() - start_time)
+
