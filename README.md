@@ -6,20 +6,15 @@ a Synchrotron Self Absorption model for non-relativistic transients
 
 <h2> OVERVIEW: </h2>
 
-SNART is a powerful and user-friendly tool that allows for the simultaneous fitting of multiple radio epochs and the estimation of physical parameters.
-SNART is implemented in Python programming language and it uses the optimization library \texttt{lmfit} for least-squares minimization, performed in log-space \citep{lmfit}.
-Uncertainties are propagated from radio data observations, through the fit parameters, and to the physical parameters in the end-result using the Uncertainties Python package \cite{uncertainties}. 
-This is the software behind DeMarchi+ 2022, which serves as an example of its capabilities.
-The SNART software package includes a set of functions for reading, manipulating and fitting radio data. The overview of the software is as follows:.
-
-
-
-<ul style="list-style-type:circle">
-	<li>The user supplies radio observation data in a CSV file as well as a configuration text file containing details about the transient such as distance and explosion date and options for the fit.</li>
-	<li>\snart reads radio data and groups individual SEDs according to a user-defined $\Delta t / t$. \snart jointly fits these SEDs to broken powerlaw, enforcing consistency in powerlaw slopes among all SEDs.</li>
-  <li>\snart calculates physical parameters $B, R, U, n_e, \rho_{\rm{CSM}}$, $ \dot{M}/v_{\rm{wind}}$, $n$ and $s$ (the power law evolution of the shocked and unshocked medium), $q$ (the power law evolution of $R$ in time), and the frequency at which synchrotron cooling occurs.</li>
-  <li>snart produces plots such as those shown in Figure \ref{fig:example} for each user-defined fit. Text files are written per model that contain the \texttt{lmfit} results. Dataframes containing the parameters of the previous step are saved to individual CSV files for each definition of $\epsilon$.</li>
-</ul>
+<p><strong><span style="color: #ff0000;">SNART</span></strong> is a powerful and user-friendly tool that allows for the simultaneous fitting of multiple radio epochs and the estimation of physical parameters.<br /><strong><span style="color: #ff0000;">SNART</span></strong> is implemented in Python programming language and it uses the optimization library <a href="https://doi.org/10.5281/zenodo.11813">LMFIT</a> for least-squares minimization, performed in log-space.<br />Uncertainties are propagated from radio data observations, through the fit parameters, and to the physical parameters in the end-result using the <a href="http://pythonhosted.org/uncertainties/">Uncertainties Python package</a>. <br />This is the software behind <a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...938...84D/abstract">DeMarchi+ 2022</a>, which serves as an example of its capabilities.<br />The SNART software package includes a set of functions for reading, manipulating and fitting radio data. The overview of the software is as follows:</p>
+<ul>
+<li>The user supplies radio observation data in a comma-separated values file, as well as a configuration file which contains details about the data, the transient event, and options for the fit.</li>
+<li><strong><span style="color: #ff0000;">SNART</span></strong> parses the radio data and groups observations into SEDs according to a user-defined&nbsp; &Delta;t /t. <strong><span style="color: #ff0000;">SNART</span></strong> jointly fits these SEDs to a broken power-law, enforcing consistency in the model parameters &alpha;<sub>1</sub>, &alpha;<sub>2</sub>, and <em>s</em>.</li>
+<li><strong><span style="color: #ff0000;">SNART</span></strong> uses fit results to calculate physical parameters <em>B, R, U,</em> n<sub>e</sub>, &rho;<sub>CSM</sub>, M<sup>&middot;</sup>/v<sub>wind</sub>, <em>p</em> (sometimes expressed as &gamma; in radio SN literature; we adopt <em>p </em>to avoid confusion with the electron Lorentz factor),&nbsp;<em>n</em> and&nbsp;<em>s</em> (the power-law evolution of the shocked and unshocked medium), <em>q</em> (the power-law evolution of <em>R(t)</em>), and the synchrotron cooling frequency.</li>
+<li><strong><span style="color: #ff0000;">SNART</span></strong> produces outputs in the form of:
+<ul>
+<li>(i) text files containing the fit results and the derived physical parameters,</li>
+<li>(ii) visualizations of the data, fitted SEDs, and physical parameters</li>
 
 
 <h2> HOW TO DOWNLOAD: </h2>
