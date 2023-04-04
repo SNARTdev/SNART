@@ -16,12 +16,11 @@ a Synchrotron Self Absorption model for non-relativistic transients
 <li>(i) text files containing the fit results and the derived physical parameters,</li>
 <li>(ii) visualizations of the data, fitted SEDs, and physical parameters</li>
 
-
 </ul>
 </li>
 </ul>
 <p><br />&lt;h2&gt; HOW TO DOWNLOAD: &lt;/h2&gt;<br />&lt;h2&gt; DANIEL?: &lt;/h2&gt;</p>
-
+<p><br />&lt;h2&gt; Using the <a href="https://github.com/SNARTdev/SNART/tree/main/examples">Example</a> &lt;/h2&gt;</p>
 Package version requirements:
 
 pandas 0.24.2
