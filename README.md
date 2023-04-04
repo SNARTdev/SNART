@@ -17,8 +17,10 @@ a Synchrotron Self Absorption model for non-relativistic transients
 <li>(ii) visualizations of the data, fitted SEDs, and physical parameters</li>
 
 
-<h2> HOW TO DOWNLOAD: </h2>
-<h2> DANIEL?: </h2>
+</ul>
+</li>
+</ul>
+<p><br />&lt;h2&gt; HOW TO DOWNLOAD: &lt;/h2&gt;<br />&lt;h2&gt; DANIEL?: &lt;/h2&gt;</p>
 
 Package version requirements:
 
