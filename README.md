@@ -19,7 +19,16 @@ a Synchrotron Self Absorption model for non-relativistic transients
 </ul>
 </li>
 </ul>
-<p><br />&lt;h2&gt; HOW TO DOWNLOAD: &lt;/h2&gt;<br />&lt;h2&gt; DANIEL?: &lt;/h2&gt;</p>
+<p><br /><h2> HOW TO DOWNLOAD: </h2> <br />
+  
+-- Download the github repository
+-- create a virtual environment
+-- enter the directory while in your virtual environment
+-- type `pip install -r requirements.txt` in the command line (without the ') to download versions of necessary packages
+-- type `snart` to run the example
+
+
+</p>
 <p><br />&lt;h2&gt; Using the <a href="https://github.com/SNARTdev/SNART/tree/main/examples">Example</a> &lt;/h2&gt;</p>
 Package version requirements:
 
