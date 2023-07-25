@@ -96,6 +96,9 @@ alpha2: the THICK slope of the SED
 
 - ********************** known issues ***********************
 
+Installing the requirements.txt will crash if your version of setuptools>58. I have found using setuptools==57.0.0 works.
+
+
 The minimization doesn't do well at low fluxes/the display minimization is a different result from the observed minimization:
 The minimization is run twice, once to do all calculations and again to plot the results. This is run twice to automatically
 calculate and propagate uncertainties in a convenient manner. However, sometimes they are different from one another. This is
