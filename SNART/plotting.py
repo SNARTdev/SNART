@@ -5,7 +5,7 @@ import seaborn as sns
 from uncertainties import ufloat
 from SNART.fitting import (peak_flux, peak_freq, fake_freq, bpl_ratios_notime,
                            limit2, asymp_intercept, LinearUnc, limit)
-from SNART.SED_from_B_R import wrapped_prop_b_and_r, wrapped_flux, wrapped_nu
+#from SNART.SED_from_B_R import wrapped_prop_b_and_r, wrapped_flux, wrapped_nu
 from SNART.synchrotron import r_to_t, t_to_r, const_m_loss, speedLight
 import matplotlib
 import matplotlib.pyplot as plt
@@ -617,79 +617,79 @@ def plot_phys_param_fit(ax, fitdict):
     return
 
 
-def propagate_bpl_test(ax, data, fitter, desired_time, output_dir,
-                       theta_nom=np.pi/2, eE=0.1, eB=0.01, fill_nom=1.0,
-                       comparative_case='All_Params_Vary'):
-    """Propagates the broken powerlaw to a given time (in days) and plots
-    the result to the supplied axis.
-    """
-    style = {'All_Params_Vary': ['-', 'D', 'black'],
-             'Hold_alpha2_2.5': [':', 's', '#00495d'],
-             'Hold_s_fixed': ['-.', 'p', '#c79b5e'],
-             'Hold_alpha2_and_s': ['--', '^', 'maroon']}
-    ls, ms, ccc = style[comparative_case]
+# def propagate_bpl_test(ax, data, fitter, desired_time, output_dir,
+#                        theta_nom=np.pi/2, eE=0.1, eB=0.01, fill_nom=1.0,
+#                        comparative_case='All_Params_Vary'):
+#     """Propagates the broken powerlaw to a given time (in days) and plots
+#     the result to the supplied axis.
+#     """
+#     style = {'All_Params_Vary': ['-', 'D', 'black'],
+#              'Hold_alpha2_2.5': [':', 's', '#00495d'],
+#              'Hold_s_fixed': ['-.', 'p', '#c79b5e'],
+#              'Hold_alpha2_and_s': ['--', '^', 'maroon']}
+#     ls, ms, ccc = style[comparative_case]
 
-    outpath = os.path.join(output_dir, data.name, 'Projection',
-                            comparative_case)
-    os.makedirs(outpath, exist_ok=True)
+    # outpath = os.path.join(output_dir, data.name, 'Projection',
+    #                         comparative_case)
+    # os.makedirs(outpath, exist_ok=True)
 
-    res = fitter.result
-    df_phys = res.phys_data
-    alpha1 = ufloat(res.disp.params['alpha1'].value,
-                    res.disp.params['alpha1'].stderr)
-    alpha2 = res.linked_variables['alpha2']
-    s = res.linked_variables['s']
-    p = res.linked_variables['alpha1']
-    theta = ufloat(theta_nom, 0)
-    epsilonE = ufloat(epsilonE, 0)
-    epsilonB = ufloat(epsilonB, 0)
-    filling = ufloat(fill_nom, 0)
-    energyLower = ufloat(energyLower_nom, 0)
-    distance = ufloat(data.distance, 0)
+    # res = fitter.result
+    # df_phys = res.phys_data
+    # alpha1 = ufloat(res.disp.params['alpha1'].value,
+    #                 res.disp.params['alpha1'].stderr)
+    # alpha2 = res.linked_variables['alpha2']
+    # s = res.linked_variables['s']
+    # p = res.linked_variables['alpha1']
+    # theta = ufloat(theta_nom, 0)
+    # epsilonE = ufloat(epsilonE, 0)
+    # epsilonB = ufloat(epsilonB, 0)
+    # filling = ufloat(fill_nom, 0)
+    # energyLower = ufloat(energyLower_nom, 0)
+    # distance = ufloat(data.distance, 0)
 
-    mask = df_phys['limit'].to_numpy() != 'limit'
-    b_ufloat = np.array([w for w in df_phys.loc[mask, 'b']])
-    r_ufloat = np.array([w for w in df_phys.loc[mask, 'r']])
-    dates = df_phys.loc[mask, 'date'].to_numpy()
+    # mask = df_phys['limit'].to_numpy() != 'limit'
+    # b_ufloat = np.array([w for w in df_phys.loc[mask, 'b']])
+    # r_ufloat = np.array([w for w in df_phys.loc[mask, 'r']])
+    # dates = df_phys.loc[mask, 'date'].to_numpy()
 
-    prop_b, prop_r = wrapped_prop_b_and_r(b_ufloat, r_ufloat, dates,
-                                          desired_time, name, comparative_case)
+    # prop_b, prop_r = wrapped_prop_b_and_r(b_ufloat, r_ufloat, dates,
+    #                                       desired_time, name, comparative_case)
 
-    prop_flux = wrapped_flux(prop_b, prop_r, theta,  p, epsilonE, epsilonB,
-                             filling, energyLower, distance)
-    prop_nu = wrapped_nu(prop_b, prop_r, theta,  p, epsilonE, epsilonB, filling,
-                         energyLower, distance)
-    # scale to display units
-    prop_flux *= 1e6
-    prop_nu *= 5
+    # prop_flux = wrapped_flux(prop_b, prop_r, theta,  p, epsilonE, epsilonB,
+    #                          filling, energyLower, distance)
+    # prop_nu = wrapped_nu(prop_b, prop_r, theta,  p, epsilonE, epsilonB, filling,
+    #                      energyLower, distance)
+    # # scale to display units
+    # prop_flux *= 1e6
+    # prop_nu *= 5
 
-    fff = np.log10(np.arange(prop_nu.n/10, prop_nu.n*10, prop_nu.n/10))
-    f = [ufloat(ff, 0) for ff in fff]
+    # fff = np.log10(np.arange(prop_nu.n/10, prop_nu.n*10, prop_nu.n/10))
+    # f = [ufloat(ff, 0) for ff in fff]
 
-    prop_bpl = [wrapped_asym(freq, prop_flux, prop_nu, alpha1, alpha2, s) for
-                freq in f]
+    # prop_bpl = [wrapped_asym(freq, prop_flux, prop_nu, alpha1, alpha2, s) for
+    #             freq in f]
 
-    prop_bpl_num = [num.n for num in prop_bpl]
-    prop_bpl_unc = [num.s for num in prop_bpl]
+    # prop_bpl_num = [num.n for num in prop_bpl]
+    # prop_bpl_unc = [num.s for num in prop_bpl]
 
-    ax.plot(fff, prop_bpl_num,  alpha=0.3, color=ccc) #marker='*',
-    ax.scatter(np.log10(prop_nu.n), np.log10(prop_flux.n), marker=ms,
-               alpha=0.3, color=ccc)
+    # ax.plot(fff, prop_bpl_num,  alpha=0.3, color=ccc) #marker='*',
+    # ax.scatter(np.log10(prop_nu.n), np.log10(prop_flux.n), marker=ms,
+    #            alpha=0.3, color=ccc)
 
-    l1 = limit1(fff, alpha1.n, alpha2.n, s.n, prop_flux.n, prop_nu.n)
-    l2 = limit2(fff, prop_nu.n, prop_flux.n, alpha1.n, alpha2.n, s.n)
-    ax.plot(fff, l1, alpha=0.1, linestyle='--', label='f>>f0', color='grey')
-    ax.plot(fff, l2, alpha=0.1, linestyle='--', label='f<<f0', color='grey')
+    # l1 = limit1(fff, alpha1.n, alpha2.n, s.n, prop_flux.n, prop_nu.n)
+    # l2 = limit2(fff, prop_nu.n, prop_flux.n, alpha1.n, alpha2.n, s.n)
+    # ax.plot(fff, l1, alpha=0.1, linestyle='--', label='f>>f0', color='grey')
+    # ax.plot(fff, l2, alpha=0.1, linestyle='--', label='f<<f0', color='grey')
 
-    # write projected values to file
-    outfile = '{}/projection_at_{}_days.txt'.format(outpath, desired_time)
-    cols = ['projected time (days)', 'projected b (Gauss)', 'projected r (cm)',
-            'projected frequency (GHz)', 'projected flux (microJy)']
-    with open(outfile, 'a') as fp:
-        fp.write(', '.join(cols) + '\n')
-        fp.write('{}, {}, {}, {}, {} '.format(
-            desired_time, prop_b, prop_r, prop_nu, prop_flux)+'\n')
+    # # write projected values to file
+    # outfile = '{}/projection_at_{}_days.txt'.format(outpath, desired_time)
+    # cols = ['projected time (days)', 'projected b (Gauss)', 'projected r (cm)',
+    #         'projected frequency (GHz)', 'projected flux (microJy)']
+    # with open(outfile, 'a') as fp:
+    #     fp.write(', '.join(cols) + '\n')
+    #     fp.write('{}, {}, {}, {}, {} '.format(
+    #         desired_time, prop_b, prop_r, prop_nu, prop_flux)+'\n')
 
-    return ax
+    # return ax
 
 
