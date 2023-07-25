@@ -25,6 +25,7 @@ a Synchrotron Self Absorption model for non-relativistic transients
 <li> create a virtual environment </li> 
 <li>enter the directory while in your virtual environment</li> 
 <li> type `pip install -r requirements.txt` in the command line to download versions of necessary packages</li>
+<li> type `pip install .`
 <li> type `snart` to run the example </li>
 
 
