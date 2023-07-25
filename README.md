@@ -32,15 +32,15 @@ a Synchrotron Self Absorption model for non-relativistic transients
 <p><br />&lt;h2&gt; Using the <a href="https://github.com/SNARTdev/SNART/tree/main/examples">Example</a> &lt;/h2&gt;</p>
 Package version requirements:
 
+python 3.6.13
 pandas 0.24.2
 uncertainties 3.1.2
 lmfit 0.9.14
 numpy 1.19.4
 seaborn 0.11.2
+scipy 1.5.4
 
-scipy DANIEL???
 
-python???
 
 - ********************** inputs in csv [WIP] ***********************
 
