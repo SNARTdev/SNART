@@ -40,7 +40,7 @@ seaborn 0.11.2
 
 scipy DANIEL???
 
-python 3.9
+python???
 
 - ********************** inputs in csv [WIP] ***********************
 
